@@ -18,7 +18,7 @@ environment {
                 }
             }
             steps {
-                echo "${GIT_BRANCH}" 
+                echo "GIT Branch name:${GIT_BRANCH}" 
                 echo "Branch name: ${BRANCH}"
                 sh 'printenv'
                 checkout([$class: 'GitSCM', branches: [[name: params.get('Branch')]], doGenerateSubmoduleConfigurations: false, extensions: [], gitTool: 'Default', submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'tkachenko_github', url: 'https://github.com/Eugentk/webhook_jenkins.git']]])
