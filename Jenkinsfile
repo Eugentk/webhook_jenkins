@@ -11,7 +11,7 @@ pipeline {
         stage ('Checkout') {
             steps {
                 sh 'printenv'
-                checkout([$class: 'GitSCM', branches: [[name: params.get('Branch')]], doGenerateSubmoduleConfigurations: false, extensions: [], gitTool: 'Default', submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'tkachenko_github', url: 'https://github.com/Eugentk/webhook_jenkins.git']]])
+                checkout([$class: 'GitSCM', branches: [[name: params.getOrDefault('Branch', params.get('GIT_BRANCH'))]], doGenerateSubmoduleConfigurations: false, extensions: [], gitTool: 'Default', submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'tkachenko_github', url: 'https://github.com/Eugentk/webhook_jenkins.git']]])
             }
         }
         stage("Update server") {
