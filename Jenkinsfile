@@ -10,8 +10,8 @@ pipeline {
     stages {
         stage ('Checkout') {
             steps {
+                echo "${GIT_BRANCH}" 
                 sh 'printenv'
-                echo $GIT_BRANCH
                 checkout([$class: 'GitSCM', branches: [[name: '$GIT_BRANCH']], doGenerateSubmoduleConfigurations: false, extensions: [], gitTool: 'Default', submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'tkachenko_github', url: 'https://github.com/Eugentk/webhook_jenkins.git']]])
             }
         }
