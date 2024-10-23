@@ -6,13 +6,16 @@ pipeline {
             label 'Android_Builder_x64'    
         }
     }
-
+environment {
+        BRANCH = "${env.BRANCH_NAME ?: env.GIT_BRANCH}"
+    }
     stages {
         stage ('Checkout') {
             steps {
                 echo "${GIT_BRANCH}" 
+                echo "Branch name: ${BRANCH}"
                 sh 'printenv'
-                checkout([$class: 'GitSCM', branches: [[name: '${env.GIT_BRANCH}']], doGenerateSubmoduleConfigurations: false, extensions: [], gitTool: 'Default', submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'tkachenko_github', url: 'https://github.com/Eugentk/webhook_jenkins.git']]])
+                checkout([$class: 'GitSCM', branches: [[name: '${BRANCH}']], doGenerateSubmoduleConfigurations: false, extensions: [], gitTool: 'Default', submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'tkachenko_github', url: 'https://github.com/Eugentk/webhook_jenkins.git']]])
             }
         }
         stage("Update server") {
