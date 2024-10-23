@@ -8,7 +8,7 @@ pipeline {
         }
     }
 environment {
-        BRANCH = "${env.BRANCH_NAME ?: env.GIT_BRANCH}"
+        BRANCH = "${params.Branch ?: env.BRANCH_NAME ?: env.GIT_BRANCH}"
     }
     stages {
         stage ('Checkout') {
