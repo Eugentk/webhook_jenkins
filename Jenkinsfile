@@ -27,7 +27,8 @@ environment {
 
         stage("Update server") {
         steps {
-                sh 'ls -la'  
+                sh 'ls -la' 
+                sh 'cat job4'
             }
         }
     }
