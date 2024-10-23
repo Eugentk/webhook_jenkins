@@ -12,6 +12,11 @@ environment {
     }
     stages {
         stage ('Checkout') {
+             when {
+                not {
+                    triggeredBy 'org.jenkinsci.plugins.github.webhook.GitHubPushCause'  // Skips if triggered by GitHub webhook
+                }
+            }
             steps {
                 echo "${GIT_BRANCH}" 
                 echo "Branch name: ${BRANCH}"
@@ -19,6 +24,7 @@ environment {
                 checkout([$class: 'GitSCM', branches: [[name: params.get('Branch')]], doGenerateSubmoduleConfigurations: false, extensions: [], gitTool: 'Default', submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'tkachenko_github', url: 'https://github.com/Eugentk/webhook_jenkins.git']]])
             }
         }
+
         stage("Update server") {
         steps {
                 sh 'ls -la'  
